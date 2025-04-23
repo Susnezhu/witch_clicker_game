@@ -120,6 +120,11 @@ function startGame() {
 
     //jos klikkaa hirviötä hänen terveys pienenee
     monster.onclick = function() {
+        let hitSound = document.getElementById("hit-sound");
+
+        hitSound.currentTime = 0;
+        hitSound.play();
+        
         monster.src = grass.hit
         grass.health--;
         healthDisplay.textContent = grass.health;
