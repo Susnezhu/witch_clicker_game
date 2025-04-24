@@ -89,7 +89,7 @@ function startGame() {
     let pumpkin= {
         health: 500000,
         normal: "gif/pumpkin_monster.gif",
-        hit: "gif/pumpkin_monster_hit.gif", //puuttuu!
+        hit: "gif/pumpkin_monster_hit.gif",
         start: "gif/pumpkin_monster_start.gif"
     }
 
@@ -101,6 +101,7 @@ function startGame() {
     let score = 0;
     const healthDisplay = document.getElementById("monster_health");
     const monster = document.getElementById("monster");
+    const witchDisplay = document.getElementById("witch")
     monster.style.display = "none";
     healthDisplay.style.display = "none";
 
@@ -129,6 +130,7 @@ function startGame() {
         grass.health--;
         healthDisplay.textContent = grass.health;
         healthDisplay.style.display = "block";
+        witchDisplay.src = witch.hit
 
         //animaatio, jotta pelaaja näkee, että jotain tapahtui
         setTimeout(function() {
@@ -139,5 +141,10 @@ function startGame() {
         setTimeout(function(){
             healthDisplay.style.display = "none";
         },500)
+
+        //näyttää, että noita käyttää omia voimia
+        setTimeout(function() {
+            witchDisplay.src = witch.normal
+        },800)
     };
 }
