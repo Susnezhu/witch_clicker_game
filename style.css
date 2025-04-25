@@ -73,6 +73,16 @@ img {
     top: 350px;
 }
 
+#witch_power {
+    position: absolute;
+    left: 100px;
+    top:320px;
+    font-size: 40px;
+    font-family: "Jacquard 12", system-ui;
+    font-weight: 400;
+    color: aquamarine;
+}
+
 .monster_icons {
     display: flex;
     flex-direction: column;
