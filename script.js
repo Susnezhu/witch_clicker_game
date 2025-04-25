@@ -15,6 +15,95 @@ function stopMusic() {
 }
 
 
+//noita
+let witch = {
+    hitPower: 1,
+    normal: "gif/witch.gif",
+    hit: "gif/witch_hit.gif"
+}
+
+//Kaikki hirviöt ja niiden eri muodot
+let grass = {
+    isOn: true,
+    health: 100,
+    h: 1,
+    power: 10,
+    normal: "gif/grass_monster.gif",
+    hit: "gif/grass_monster_hit.gif",
+    start: "gif/grass_monster_start.gif"
+}
+
+let mushroom = {
+    isOn: false,
+    health: 500,
+    h: 500,
+    power: 2,
+    normal: "gif/mushroom_monster.gif",
+    hit: "gif/mushroom_monster_hit.gif",
+    start: "gif/mushroom_monster_start.gif"
+}
+
+
+let cat = {
+    isOn: false,
+    health: 1000,
+    h: 1000,
+    power: 5,
+    hit: "gif/cat_monster_hit.gif",
+    normal: "gif/cat_monster.gif",
+    start: "gif/cat_monster_start.gif"
+};
+
+let fire = {
+    isOn: false,
+    health: 10000,
+    h: 10000,
+    power: 10,
+    normal: "gif/fire_monster.gif",
+    hit: "gif/fire_monster_hit.gif",
+    start: "gif/fire_monster_start.gif"
+}
+
+let pumpkin= {
+    isOn: false,
+    health: 500000,
+    h: 500000,
+    power: 20,
+    normal: "gif/pumpkin_monster.gif",
+    hit: "gif/pumpkin_monster_hit.gif",
+    start: "gif/pumpkin_monster_start.gif"
+}
+
+
+
+const grass_icon = document.getElementById("grass_icon")
+const mushroom_icon = document.getElementById("mushroom_icon")
+const cat_icon = document.getElementById("cat_icon")
+const fire_icon = document.getElementById("fire_icon")
+const pumpkin_icon = document.getElementById("pumpkin_icon")
+
+const icons  = [grass_icon, mushroom_icon, cat_icon, fire_icon, pumpkin_icon]
+
+function unlockIcons() {
+    const unlocks = [
+        { icon: mushroom_icon, neededValue: 10 },
+        { icon: cat_icon, neededValue: 20 },
+        { icon: fire_icon, neededValue: 30 },
+        { icon: pumpkin_icon, neededValue: 40 }
+    ];
+
+    for (let { icon, neededValue } of unlocks) {
+        if (witch.hitPower >= neededValue) {
+            icon.style.filter = "brightness(100%)";
+            icon.style.pointerEvents = "auto";
+        } else {
+            icon.style.filter = "brightness(50%)";
+            icon.style.pointerEvents = "none";
+        }
+    }
+}
+unlockIcons()
+
 
 const startBtn = document.getElementById("start-btn");
 const startScreen = document.getElementById("start-screen");
@@ -50,65 +139,6 @@ function startGame() {
             isMusicPlaying = true
         }
     };
-
-    //noita
-    let witch = {
-        hitPower: 1,
-        normal: "gif/witch.gif",
-        hit: "gif/witch_hit.gif"
-    }
-
-    //Kaikki hirviöt ja niiden eri muodot
-    let grass = {
-        isOn: true,
-        health: 5,
-        h: 5,
-        power: 1,
-        normal: "gif/grass_monster.gif",
-        hit: "gif/grass_monster_hit.gif",
-        start: "gif/grass_monster_start.gif"
-    }
-
-    let mushroom = {
-        isOn: false,
-        health: 500,
-        h: 500,
-        power: 2,
-        normal: "gif/mushroom_monster.gif",
-        hit: "gif/mushroom_monster_hit.gif",
-        start: "gif/mushroom_monster_start.gif"
-    }
-
-
-    let cat = {
-        isOn: false,
-        health: 1000,
-        h: 1000,
-        power: 5,
-        hit: "gif/cat_monster_hit.gif",
-        normal: "gif/cat_monster.gif",
-        start: "gif/cat_monster_start.gif"
-    };
-
-    let fire = {
-        isOn: false,
-        health: 10000,
-        h: 10000,
-        power: 10,
-        normal: "gif/fire_monster.gif",
-        hit: "gif/fire_monster_hit.gif",
-        start: "gif/fire_monster_start.gif"
-    }
-
-    let pumpkin= {
-        isOn: false,
-        health: 500000,
-        h: 500000,
-        power: 20,
-        normal: "gif/pumpkin_monster.gif",
-        hit: "gif/pumpkin_monster_hit.gif",
-        start: "gif/pumpkin_monster_start.gif"
-    }
 
     const stars = "gif/stars.gif"
 
@@ -197,6 +227,8 @@ function startGame() {
                         monster.style.pointerEvents = "none";
                         monster.src = stars;
 
+                        unlockIcons() //avaa uuden hirviön, jos noidan voimat ovat riittävät
+
                         setTimeout(function() {
                             monster.style.display = "none";
                             healthDisplay.style.display = "none";
@@ -205,26 +237,20 @@ function startGame() {
                             isMonsterDying = false;
                         }, 2000);
                     };
-                }
+                };
             };
-        }
-    }
+        };
+    };
 
 
-
-    const grass_icon = document.getElementById("grass_icon")
-    const mushroom_icon = document.getElementById("mushroom_icon")
-    const cat_icon = document.getElementById("cat_icon")
-    const fire_icon = document.getElementById("fire_icon")
-    const pumpkin_icon = document.getElementById("pumpkin_icon")
-
-    const icons  = [grass_icon, mushroom_icon, cat_icon, fire_icon, pumpkin_icon]
 
     for (let ic of icons) {
         ic.onclick = function() { //jos painaa jonkun hirviön vaihto näppäimistä
             if (isMonsterDying) {
                 return;
-            }
+            };
+
+
             const changingSound = document.getElementById("changing_sound");
             changingSound.currentTime = 0;
             changingSound.play();
@@ -242,7 +268,7 @@ function startGame() {
                 mo.isOn = false;
                 mo.health = mo.h;
                 monster.style.display = "none";
-            }
+            };
 
             //etsii mitä näppäintä painettiin ja laittaa sille hirviölle true arvon
             if (ic === grass_icon) {
@@ -255,9 +281,9 @@ function startGame() {
                 fire.isOn = true;
             } else if (ic === pumpkin_icon) {
                 pumpkin.isOn = true;
-            }
+            };
 
             showMonster();
         }; 
-    }
-}
+    };
+};
