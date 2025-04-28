@@ -11,4 +11,6 @@ Pelin alussa noidalla on vain 1 taikapiste
 Peli on toteutettu gif animaation ja javascriptin avulla
 
 #KAIKKI KUVAT JA GIF OLEN PIIRTÄNYT ITSE (saa käyttää, jos kysyy lupaa)
-#Musiikin tein myös itse, sen saa käyttää vapaasti
+
+Musiikin tein myös itse, sen saa käyttää vapaasti
+Muita ääniä on otettu "pixabay free sound effects" nettisivuilta
