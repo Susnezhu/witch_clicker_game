@@ -54,7 +54,7 @@ let grass = {
     isOn: true,
     health: 100,
     h: 1,
-    power: 19,
+    power: 19, //VAIHTAA TÄMÄ, KUN VIIMEISET TESTIT ON TEHTY
     normal: "gif/grass_monster.gif",
     hit: "gif/grass_monster_hit.gif",
     start: "gif/grass_monster_start.gif"
@@ -312,12 +312,44 @@ function startGame() {
     };
 
 
+    //sammakko level
+    const level1 = document.getElementById("level1");
+    const level2 = document.getElementById("level2");
+    const level3 = document.getElementById("level3");
+    const level4 = document.getElementById("level4");
+
+    const levels = [
+        {lvl: level1, value: 10},
+        {lvl: level2, value: 20},
+        {lvl: level3, value: 30},
+        {lvl: level4, value: 40}
+    ];
+
+    function frogLevelBuy(level, power_value) {
+        level.onclick = function() {
+            if (witch.hitPower > power_value) {
+                coin_sound.play();
+                frog_level.style.display = "none";
+                witch.hitPower -= power_value;
+            } else {
+                warning_msg.textContent = "Not enough power";
+                frog_level.style.display = "none";
+                warning_msg.style.display = "block";
+                warning_sound.play()
+
+                setTimeout(function() {
+                    warning_msg.style.display = "none";
+                }, 2000)
+            };
+        };
+    };
+
     const frogDisplay = document.getElementById("frog");
-    const yesBtn = document.getElementById("yes-btn")
-    const noBtn = document.getElementById("no-btn")
+    const yesBtn = document.getElementById("yes-btn");
+    const noBtn = document.getElementById("no-btn");
 
     frogDisplay.onclick = function() {
-
+        
         if (!isFrogBought) {
             frog_menu.style.display = "block";
 
@@ -325,10 +357,11 @@ function startGame() {
                 frog_menu.style.display = "none";
             }
             yesBtn.onclick = function() {
-                if (witch.hitPower >= 20) {
+                if (witch.hitPower > 20) {
                     coin_sound.play()
                     frog_menu.style.display = "none";
                     isFrogBought = true;
+                    witch.hitPower -= 20;
                 } else {
                     warning_msg.textContent = "Not enough power";
                     frog_menu.style.display = "none";
@@ -343,9 +376,12 @@ function startGame() {
             }
         } else if (isFrogBought) {
             frog_level.style.display = "block";
-        } level1.onclick = function() {
-            //tähän lisätä, paljon taikaa tarvitsee level 1 ostamiseen
         }
+
+        for (let {lvl, value} of levels) {
+            frogLevelBuy(lvl, value)
+        }
+
     }
     
 };
