@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clicker game</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
 </head>
 <body>
     <!--alkunäyttö-->
@@ -28,6 +28,32 @@
         </div>
         <img id="witch" src="gif/witch.gif" alt="witch">
         <img id="monster" src="gif/grass_monster.gif" alt="monster">
+        <img id="frog" src="gif/frog_normal.gif" alt="frog">
+
+        <div id="frog_menu">
+            <p class="question">Do you want to buy a frog?</p>
+            <p class="price">-20</p>
+            <button id="yes-btn">yes</button>
+            <button id="no-btn">no</button>
+        </div>
+
+        <div id="frog_level">
+            <p>Update your frog!</p>
+            <div class="row">
+                <div class="update_levels">
+                    <button id="level1">Level 1</button>
+                    <button id="level2">Level 2</button>
+                    <button id="level3">Level 3</button>
+                </div>
+                <div class="update_levels">
+                    <button id="level4">Level 4</button>
+                    <button id="level5">Level 5</button>
+                    <button id="level6">Level 6</button>
+                </div>
+            </div>
+        </div>
+
+        <p id="warning"></p>
     </div>
 
     <!--musiikki-->
@@ -38,6 +64,8 @@
     <audio id="hit-sound" src="sounds/magic_sound.mp3"></audio>
     <audio id="win-sound" src="sounds/win_sound.mp3"></audio>
     <audio id="changing_sound" src="sounds/pop_sound.mp3"></audio>
+    <audio id="coin_sound" src="sounds/coin.mp3"></audio>
+    <audio id="warning_sound" src="sounds/warning_sound.mp3"></audio>
         
     <script src="script.js"></script>
 </body>

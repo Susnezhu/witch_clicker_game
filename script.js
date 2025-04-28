@@ -1,7 +1,19 @@
+let isMonsterDying = false;
+let isMonsterChoosed = false;
+
+const frog_menu = document.getElementById("frog_menu");
+frog_menu.style.display = "none";
+let isFrogBought = false;
+
+const frog_level = document.getElementById("frog_level");
+frog_level.style.display = "none";
+
+const warning_msg = document.getElementById("warning");
+warning_msg.style.display = "none";
+
 //musiikki
 const music = document.getElementById("bg-music");
 let isMusicPlaying = true;
-let isMonsterDying = false
 
 function startMusic() {
     music.play().catch(function(error) {
@@ -14,6 +26,14 @@ function stopMusic() {
     music.currentTime = 0;
 }
 
+//ääniä
+const songButton = document.getElementById("song_button");
+const hitSound = document.getElementById("hit-sound");
+const changingSound = document.getElementById("changing_sound");
+const coin_sound = document.getElementById("coin_sound");
+const warning_sound = document.getElementById("warning_sound");
+const win_sound = document.getElementById("win-sound");
+
 
 //noita
 let witch = {
@@ -22,12 +42,19 @@ let witch = {
     hit: "gif/witch_hit.gif"
 }
 
+//sammakko
+let frog = {
+    hitPower: 1,
+    normal:"gif/frog_normal.gif",
+    hit: "gif/frog_attack.gif",
+}
+
 //Kaikki hirviöt ja niiden eri muodot
 let grass = {
     isOn: true,
     health: 100,
     h: 1,
-    power: 10,
+    power: 19,
     normal: "gif/grass_monster.gif",
     hit: "gif/grass_monster_hit.gif",
     start: "gif/grass_monster_start.gif"
@@ -127,7 +154,6 @@ startBtn.addEventListener("click", () => {
 
 function startGame() {
     //musiikki näppäin
-    let songButton = document.getElementById("song_button");
     songButton.onclick = function() {
         if (isMusicPlaying) {
             stopMusic()
@@ -178,7 +204,6 @@ function startGame() {
 
                         }, 1000);
                     }, 500);
-                
                 }
                 
                 //jos klikkaa hirviötä hänen terveys pienenee
@@ -186,8 +211,6 @@ function startGame() {
                     if (isMonsterDying) {
                         return;
                     };
-
-                    let hitSound = document.getElementById("hit-sound");
 
                     hitSound.currentTime = 0;
                     hitSound.play();
@@ -219,7 +242,9 @@ function startGame() {
 
                     //jos hirviö kuoli
                     if (m.health <= 0) {
+                        win_sound.play()
                         isMonsterDying = true;
+                        isMonsterChoosed = false;
                         witch.hitPower += m.power;
                         witchPower.textContent = witch.hitPower;
                         witchPower.style.display = "block";
@@ -250,8 +275,6 @@ function startGame() {
                 return;
             };
 
-
-            const changingSound = document.getElementById("changing_sound");
             changingSound.currentTime = 0;
             changingSound.play();
 
@@ -283,7 +306,46 @@ function startGame() {
                 pumpkin.isOn = true;
             };
 
+            isMonsterChoosed = true;
             showMonster();
         }; 
     };
+
+
+    const frogDisplay = document.getElementById("frog");
+    const yesBtn = document.getElementById("yes-btn")
+    const noBtn = document.getElementById("no-btn")
+
+    frogDisplay.onclick = function() {
+
+        if (!isFrogBought) {
+            frog_menu.style.display = "block";
+
+            noBtn.onclick = function() {
+                frog_menu.style.display = "none";
+            }
+            yesBtn.onclick = function() {
+                if (witch.hitPower >= 20) {
+                    coin_sound.play()
+                    frog_menu.style.display = "none";
+                    isFrogBought = true;
+                } else {
+                    warning_msg.textContent = "Not enough power";
+                    frog_menu.style.display = "none";
+                    warning_msg.style.display = "block";
+                    warning_sound.play()
+
+                    setTimeout(function() {
+                        warning_msg.style.display = "none";
+                    }, 2000)
+                }
+
+            }
+        } else if (isFrogBought) {
+            frog_level.style.display = "block";
+        } level1.onclick = function() {
+            //tähän lisätä, paljon taikaa tarvitsee level 1 ostamiseen
+        }
+    }
+    
 };
