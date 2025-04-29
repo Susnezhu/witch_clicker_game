@@ -1,6 +1,7 @@
 let isMonsterDying = false;
 let isMonsterChoosed = false;
 let isFrogBought = false;
+let win_checker = false
 
 console.log("Hello")
 
@@ -29,6 +30,7 @@ const noBtn = document.getElementById("no-btn");
 const noUpdate = document.getElementById("no_update");
 const frog_menu = document.getElementById("frog_menu");
 const frog_level = document.getElementById("frog_level");
+const info_menu = document.getElementById("info_menu")
 
 //viesti käyttäjälle
 const warning_msg = document.getElementById("warning");
@@ -41,6 +43,7 @@ gameWindow.style.display ="none";
 frog_menu.style.display = "none";
 frog_level.style.display = "none";
 warning_msg.style.display = "none";
+info_menu.style.display = "none";
 
 
 //musiikki
@@ -66,12 +69,13 @@ const coin_sound = document.getElementById("coin_sound");
 const warning_sound = document.getElementById("warning_sound");
 const win_sound = document.getElementById("win-sound");
 const frog_sound = document.getElementById("frog_sound");
+const game_win = document.getElementById("game_win");
 
 
 
 //noita
 let witch = {
-    hitPower: 10000,
+    hitPower: 1,
     normal: "gif/witch.gif",
     hit: "gif/witch_hit.gif"
 }
@@ -178,6 +182,7 @@ startBtn.onclick = function() {
   //piilottaa start screen ja laittaa esille pelin
   startScreen.style.display = "none";
   gameWindow.style.display = "block";
+  info_menu.style.display = "block";
 
   //laittaa musiikin päälle
   startMusic();
@@ -201,7 +206,7 @@ function startGame() {
             isMusicPlaying = true
         }
     };
-    
+
     //hirviöiden valinta näppäimet
     for (let ic of icons) {
         ic.onclick = function() { //jos painaa jonkun hirviön vaihto näppäimistä
@@ -465,4 +470,19 @@ function startGame() {
             }
         }
     }, 5000);
+
+    setInterval(function() {
+        if (!win_checker && witch.hitPower >= pumpkin.health) {
+            game_win.play();
+            warning_msg.textContent = "Congrats! You are the strongest. Continue or restart";
+            warning_msg.style.display = "block";
+            win_checker = true;
+            music.pause()
+    
+            setTimeout(function() {
+                warning_msg.style.display = "none";
+                music.play()
+            }, 7000);
+        }
+    }, 1000);
 };

@@ -15,39 +15,52 @@
         <button id="start-btn">Start game</button>
     </div>
 
-    <!--peli ikkuna-->
-    <div id="game_window">
-        <span id="monster_health">0</span>
-        <span id="witch_power">1</span>
-        <img id="song_button" src="gif/song_on.png" alt="song_button">
-        <div class="monster_icons">
-            <img id="grass_icon" src="gif/icons/grass_icon.gif" alt="grass">
-            <img id="mushroom_icon" src="gif/icons/mushroom_icon.gif" alt="mushroom">
-            <img id="cat_icon" src="gif/icons/cat_icon.gif" alt="cat">
-            <img id="fire_icon" src="gif/icons/fire_icon.gif" alt="fire">
-            <img id="pumpkin_icon" src="gif/icons/pumpkin_icon.gif" alt="pumpkin">
-        </div>
-        <img id="witch" src="gif/witch.gif" alt="witch">
-        <img id="monster" src="gif/grass_monster.gif" alt="monster">
-        <img id="frog" src="gif/frog_normal.gif" alt="frog">
+    <div class="row">
+        <!--peli ikkuna-->
+        <div id="game_window">
+            <span id="monster_health">0</span>
+            <span id="witch_power">1</span>
+            <img id="song_button" src="gif/song_on.png" alt="song_button">
+            <div class="monster_icons">
+                <img id="grass_icon" src="gif/icons/grass_icon.gif" alt="grass">
+                <img id="mushroom_icon" src="gif/icons/mushroom_icon.gif" alt="mushroom">
+                <img id="cat_icon" src="gif/icons/cat_icon.gif" alt="cat">
+                <img id="fire_icon" src="gif/icons/fire_icon.gif" alt="fire">
+                <img id="pumpkin_icon" src="gif/icons/pumpkin_icon.gif" alt="pumpkin">
+            </div>
+            <img id="witch" src="gif/witch.gif" alt="witch">
+            <img id="monster" src="gif/grass_monster.gif" alt="monster">
+            <img id="frog" src="gif/frog_normal.gif" alt="frog">
 
-        <div id="frog_menu">
-            <p class="question">Do you want to buy a frog?</p>
-            <p class="price">-20</p>
-            <button id="yes-btn">yes</button>
-            <button id="no-btn">no</button>
+            <div id="frog_menu">
+                <p class="question">Do you want to buy a frog?</p>
+                <p class="price">-20</p>
+                <button id="yes-btn">yes</button>
+                <button id="no-btn">no</button>
+            </div>
+
+            <div id="frog_level">
+                <p class="update_text">Update your frog!</p>
+                    <div class="update_levels">
+                        <button id="level_btn">Level 1</button>
+                        <p id="level_price">-10</p>
+                    </div>
+                <button id="no_update">No</button>
+            </div>
+
+            <p id="warning"></p>
         </div>
 
-        <div id="frog_level">
-            <p class="update_text">Update your frog!</p>
-                <div class="update_levels">
-                    <button id="level_btn">Level 1</button>
-                    <p id="level_price">-10</p>
-                </div>
-            <button id="no_update">No</button>
-        </div>
+        <div id="info_menu">
+            <p>Story:</p>
+            <p class="gap">A witch fights monsters to grow stronger. Each win gives her power. Defeat them all and the final boss.</p>
 
-        <p id="warning"></p>
+            <p>How to Play:</p>
+            <p>Click monsters to attack.</p>
+            <p>Buy a frog — it hits every 5 seconds</p>
+            <p>Gain power. Unlock stronger enemies.</p>
+
+        </div>
     </div>
 
     <!--musiikki-->
@@ -61,6 +74,7 @@
     <audio id="coin_sound" src="sounds/coin.mp3"></audio>
     <audio id="warning_sound" src="sounds/warning_sound.mp3"></audio>
     <audio id="frog_sound" src="sounds/frog_sound.mp3"></audio>
+    <audio id="game_win" src="sounds/game_win.mp3"></audio>
         
     <script src="script.js"></script>
 </body>
