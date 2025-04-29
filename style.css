@@ -1,5 +1,5 @@
 body, html{
-    font-family: "Jersey 10", sans-serif;; 
+    font-family: "Jersey 10", sans-serif;
     text-align: center; 
     padding: 40px;
     background-color: #141414;
@@ -79,7 +79,7 @@ img {
     left: 100px;
     top:320px;
     font-size: 40px;
-    font-family: "Jacquard 12", system-ui;
+    font-family: "Jersey 10", sans-serif;
     font-weight: 400;
     color: aquamarine;
 }
@@ -128,47 +128,55 @@ img {
 }
 
 
+
 #frog_level {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    width: 400px;
-    background-color: rgb(59, 19, 88);
-    border-radius: 20px;
+    background-color:rgb(59, 19, 88);
+    border-radius: 15px;
+    padding: 40px;
+    width: 250px;
+    margin: 0;
+    position:absolute;
     top: 50px;
-    left: 250px;
-    padding: 15px;
-}
-#frog_level button{
-    font-size: 25px;
-    width: 150px;
-    cursor: pointer;
+    left: 300px;
 
 }
 
 .update_text {
     font-size: 40px;
-    margin: 0px;
-    margin-bottom: 20px;
-}
-
-.row {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    justify-content: center;
+    margin-bottom: 50px;
+    margin-top: 0px;
+    font-weight: bold;
 }
 
 .update_levels {
     display: flex;
-    flex-direction: column;
-    gap: 3px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(121, 83, 149);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
 }
-.update_levels p {
-    margin: 0px;
-    padding: 0px;
+
+#level_price {
+    font-size: 25px;
+    margin: 0;
     color: aquamarine;
 }
+
+#level_btn {
+    background-color: rgb(218, 159, 255);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#no_update {
+    cursor: pointer;
+}
+
+
 
 
 

@@ -1,15 +1,46 @@
 let isMonsterDying = false;
 let isMonsterChoosed = false;
-
-const frog_menu = document.getElementById("frog_menu");
-frog_menu.style.display = "none";
 let isFrogBought = false;
 
-const frog_level = document.getElementById("frog_level");
-frog_level.style.display = "none";
 
+//sammakon tasot
+const levelBtn = document.getElementById("level_btn");
+const levelPrice = document.getElementById("level_price");
+let level_checker = 1;
+let level_status = "level" + 1;
+let value = 10;
+let cost = 10;
+
+const healthDisplay = document.getElementById("monster_health");
+const witchPower = document.getElementById("witch_power");
+
+//noita, samakko ja hirviö
+const monster = document.getElementById("monster");
+const witchDisplay = document.getElementById("witch");
+const frogDisplay = document.getElementById("frog");
+
+//näppäimet, ikkunat ja valikot
+const startBtn = document.getElementById("start-btn");
+const startScreen = document.getElementById("start-screen");
+const gameWindow = document.getElementById("game_window");
+const yesBtn = document.getElementById("yes-btn");
+const noBtn = document.getElementById("no-btn");
+const noUpdate = document.getElementById("no_update");
+const frog_menu = document.getElementById("frog_menu");
+const frog_level = document.getElementById("frog_level");
+
+//viesti käyttäjälle
 const warning_msg = document.getElementById("warning");
+
+monster.style.display = "none";
+healthDisplay.style.display = "none";
+witchPower.style.display = "none";
+
+gameWindow.style.display ="none";
+frog_menu.style.display = "none";
+frog_level.style.display = "none";
 warning_msg.style.display = "none";
+
 
 //musiikki
 const music = document.getElementById("bg-music");
@@ -35,9 +66,10 @@ const warning_sound = document.getElementById("warning_sound");
 const win_sound = document.getElementById("win-sound");
 
 
+
 //noita
 let witch = {
-    hitPower: 1,
+    hitPower: 10000,
     normal: "gif/witch.gif",
     hit: "gif/witch_hit.gif"
 }
@@ -101,8 +133,13 @@ let pumpkin= {
     start: "gif/pumpkin_monster_start.gif"
 }
 
+const stars = "gif/stars.gif"
+
+const monsters = [grass, mushroom, cat, fire, pumpkin]
 
 
+
+//hirviöiden valinta näppäimet:
 const grass_icon = document.getElementById("grass_icon")
 const mushroom_icon = document.getElementById("mushroom_icon")
 const cat_icon = document.getElementById("cat_icon")
@@ -132,13 +169,10 @@ function unlockIcons() {
 unlockIcons()
 
 
-const startBtn = document.getElementById("start-btn");
-const startScreen = document.getElementById("start-screen");
-const gameWindow = document.getElementById("game_window");
-gameWindow.style.display ="none";
 
 
-startBtn.addEventListener("click", () => {
+//aloitusnäyttö
+startBtn.onclick = function() {
   //piilottaa start screen ja laittaa esille pelin
   startScreen.style.display = "none";
   gameWindow.style.display = "block";
@@ -148,7 +182,7 @@ startBtn.addEventListener("click", () => {
 
   //aloittaa pelin
   startGame();
-});
+};
 
 
 
@@ -166,21 +200,52 @@ function startGame() {
         }
     };
 
-    const stars = "gif/stars.gif"
 
-    let monsters = [grass, mushroom, cat, fire, pumpkin]
+    //hirviöiden valinta näppäimet
+    for (let ic of icons) {
+        ic.onclick = function() { //jos painaa jonkun hirviön vaihto näppäimistä
+            if (isMonsterDying) {
+                return;
+            };
+
+            changingSound.currentTime = 0;
+            changingSound.play();
+
+            ic.style.transition = "transform 0.2s ease";
+            ic.style.transform = "scale(1.3)";
+
+            setTimeout(function() {
+                ic.style.transform = "scale(1)";
+            }, 200);
+
+
+            //laittaa kaikille arvoksi false
+            for (let mo of monsters){
+                mo.isOn = false;
+                mo.health = mo.h;
+                monster.style.display = "none";
+            };
+
+            //etsii mitä näppäintä painettiin ja laittaa sille hirviölle true arvon
+            if (ic === grass_icon) {
+                grass.isOn = true;
+            } else if (ic === mushroom_icon) {
+                mushroom.isOn = true;
+            } else if (ic === cat_icon) {
+                cat.isOn = true;
+            } else if (ic === fire_icon) {
+                fire.isOn = true;
+            } else if (ic === pumpkin_icon) {
+                pumpkin.isOn = true;
+            };
+
+            isMonsterChoosed = true;
+            showMonster();
+        }; 
+    };
 
 
     //peli
-    let score = 0;
-    const healthDisplay = document.getElementById("monster_health");
-    const monster = document.getElementById("monster");
-    const witchDisplay = document.getElementById("witch")
-    const witchPower = document.getElementById("witch_power")
-    monster.style.display = "none";
-    healthDisplay.style.display = "none";
-    witchPower.style.display = "none";
-
     function showMonster() {
         if (isMonsterDying) {
             return;
@@ -268,88 +333,9 @@ function startGame() {
     };
 
 
-
-    for (let ic of icons) {
-        ic.onclick = function() { //jos painaa jonkun hirviön vaihto näppäimistä
-            if (isMonsterDying) {
-                return;
-            };
-
-            changingSound.currentTime = 0;
-            changingSound.play();
-
-            ic.style.transition = "transform 0.2s ease";
-            ic.style.transform = "scale(1.3)";
-
-            setTimeout(function() {
-                ic.style.transform = "scale(1)";
-            }, 200);
-
-
-            //laittaa kaikille arvoksi false
-            for (let mo of monsters){
-                mo.isOn = false;
-                mo.health = mo.h;
-                monster.style.display = "none";
-            };
-
-            //etsii mitä näppäintä painettiin ja laittaa sille hirviölle true arvon
-            if (ic === grass_icon) {
-                grass.isOn = true;
-            } else if (ic === mushroom_icon) {
-                mushroom.isOn = true;
-            } else if (ic === cat_icon) {
-                cat.isOn = true;
-            } else if (ic === fire_icon) {
-                fire.isOn = true;
-            } else if (ic === pumpkin_icon) {
-                pumpkin.isOn = true;
-            };
-
-            isMonsterChoosed = true;
-            showMonster();
-        }; 
-    };
-
-
-    //sammakko level
-    const level1 = document.getElementById("level1");
-    const level2 = document.getElementById("level2");
-    const level3 = document.getElementById("level3");
-    const level4 = document.getElementById("level4");
-
-    const levels = [
-        {lvl: level1, value: 10},
-        {lvl: level2, value: 20},
-        {lvl: level3, value: 30},
-        {lvl: level4, value: 40}
-    ];
-
-    function frogLevelBuy(level, power_value) {
-        level.onclick = function() {
-            if (witch.hitPower > power_value) {
-                coin_sound.play();
-                frog_level.style.display = "none";
-                witch.hitPower -= power_value;
-            } else {
-                warning_msg.textContent = "Not enough power";
-                frog_level.style.display = "none";
-                warning_msg.style.display = "block";
-                warning_sound.play()
-
-                setTimeout(function() {
-                    warning_msg.style.display = "none";
-                }, 2000)
-            };
-        };
-    };
-
-    const frogDisplay = document.getElementById("frog");
-    const yesBtn = document.getElementById("yes-btn");
-    const noBtn = document.getElementById("no-btn");
-
+    //jos painaa sammakkoa, avautuu valikko frog_menu, jos !isFrogBought
     frogDisplay.onclick = function() {
-        
+
         if (!isFrogBought) {
             frog_menu.style.display = "block";
 
@@ -374,14 +360,54 @@ function startGame() {
                 }
 
             }
-        } else if (isFrogBought) {
+        } else if (isFrogBought) {      //jos sammakko on jo ostettu, avautuu frog_level valikko
             frog_level.style.display = "block";
         }
 
-        for (let {lvl, value} of levels) {
-            frogLevelBuy(lvl, value)
+        noUpdate.onclick = function() {     //"no" näppäin, joka sulkee frog_level valikon
+            frog_level.style.display = "none";
+            changingSound.play()
         }
-
     }
-    
+
+
+
+    //funktio tarkistaa mitä näppäintä painettiin frog_level ikkunassa
+    function frogLevelBuy() {
+        levelBtn.onclick = function() {
+            if(witch.hitPower > cost && level_checker <= 4) { //ostaa uuden tason, jos on tarpeeksi taika voimia
+                coin_sound.play();
+                frog_level.style.display = "none";
+                witch.hitPower -= cost;
+                frog.hitPower += value
+                level_checker += 1
+                value += 5
+                cost += 10
+                level_status = "level " + level_checker
+
+                levelPrice.textContent = cost
+                levelBtn.textContent = level_status
+
+            } else if (witch.hitPower < cost){
+                warning_msg.textContent = "Not enough power";
+                frog_level.style.display = "none";
+                warning_msg.style.display = "block";
+                warning_sound.play()
+
+                setTimeout(function() {
+                    warning_msg.style.display = "none";
+                }, 2000)
+            }
+
+            if (level_checker > 4) {
+                let text = "Full"
+                levelBtn.textContent = text
+                levelBtn.disabled = true;
+                levelBtn.style.pointerEvents = "none";
+                levelPrice.style.display = "none";
+                return;
+            }
+        };
+    };
+    frogLevelBuy();
 };

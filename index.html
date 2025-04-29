@@ -6,6 +6,7 @@
     <title>Clicker game</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+    <link rel="icon" href="icon.png" type="image/png">
 </head>
 <body>
     <!--alkunäyttö-->
@@ -32,27 +33,18 @@
 
         <div id="frog_menu">
             <p class="question">Do you want to buy a frog?</p>
-            <p class="price">-20</p>
+            <p class="price">20</p>
             <button id="yes-btn">yes</button>
             <button id="no-btn">no</button>
         </div>
 
         <div id="frog_level">
             <p class="update_text">Update your frog!</p>
-            <div class="row">
                 <div class="update_levels">
-                    <p>-10</p>
-                    <button id="level1">Level 1</button>
-                    <p>-20</p>
-                    <button id="level2">Level 2</button>
+                    <button id="level_btn">Level 1</button>
+                    <p id="level_price">10</p>
                 </div>
-                <div class="update_levels">
-                    <p>-30</p>
-                    <button id="level3">Level 3</button>
-                    <p>-40</p>
-                    <button id="level4">Level 4</button>
-                </div>
-            </div>
+            <button id="no_update">No</button>
         </div>
 
         <p id="warning"></p>
