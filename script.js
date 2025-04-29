@@ -2,13 +2,14 @@ let isMonsterDying = false;
 let isMonsterChoosed = false;
 let isFrogBought = false;
 
+console.log("Hello")
 
 //sammakon tasot
 const levelBtn = document.getElementById("level_btn");
 const levelPrice = document.getElementById("level_price");
 let level_checker = 1;
 let level_status = "level" + 1;
-let value = 10;
+let value = 5;
 let cost = 10;
 
 const healthDisplay = document.getElementById("monster_health");
@@ -64,6 +65,7 @@ const changingSound = document.getElementById("changing_sound");
 const coin_sound = document.getElementById("coin_sound");
 const warning_sound = document.getElementById("warning_sound");
 const win_sound = document.getElementById("win-sound");
+const frog_sound = document.getElementById("frog_sound");
 
 
 
@@ -85,8 +87,8 @@ let frog = {
 let grass = {
     isOn: true,
     health: 100,
-    h: 1,
-    power: 19, //VAIHTAA TÄMÄ, KUN VIIMEISET TESTIT ON TEHTY
+    h: 100,
+    power: 1,
     normal: "gif/grass_monster.gif",
     hit: "gif/grass_monster_hit.gif",
     start: "gif/grass_monster_start.gif"
@@ -199,8 +201,7 @@ function startGame() {
             isMusicPlaying = true
         }
     };
-
-
+    
     //hirviöiden valinta näppäimet
     for (let ic of icons) {
         ic.onclick = function() { //jos painaa jonkun hirviön vaihto näppäimistä
@@ -385,7 +386,7 @@ function startGame() {
                 cost += 10
                 level_status = "level " + level_checker
 
-                levelPrice.textContent = cost
+                levelPrice.textContent = "-" + cost
                 levelBtn.textContent = level_status
 
             } else if (witch.hitPower < cost){
@@ -410,4 +411,58 @@ function startGame() {
         };
     };
     frogLevelBuy();
+
+    setInterval(function () {
+        if (!isMonsterDying && isFrogBought && monster.style.display !== "none") {
+            for (let monst of monsters) {
+                if (monst.isOn) {
+                    frogDisplay.src = frog.hit;
+                    frog_sound.play()
+
+                    monster.src = monst.hit;
+                    monst.health -= frog.hitPower;
+                    healthDisplay.textContent = monst.health;
+                    healthDisplay.style.display = "block";
+    
+                    setTimeout(function() {
+                        if (!isMonsterDying) {
+                            monster.src = monst.normal;
+                        }
+                    }, 300);
+
+                    setTimeout(function() {
+                        frogDisplay.src = frog.normal;
+                    },1500)
+    
+                    // näyttää puoli sekunttia hirviön terveys määrää
+                    setTimeout(function() {
+                        healthDisplay.style.display = "none";
+                    }, 500);
+    
+                    // jos hirviö kuoli
+                    if (monst.health <= 0) {
+                        win_sound.play();
+                        isMonsterDying = true;
+                        isMonsterChoosed = false;
+                        witch.hitPower += monst.power;
+                        witchPower.textContent = witch.hitPower;
+                        witchPower.style.display = "block";
+    
+                        monster.style.pointerEvents = "none";
+                        monster.src = stars;
+    
+                        unlockIcons(); // avaa uuden hirviön, jos noidan voimat ovat riittävät
+    
+                        setTimeout(function() {
+                            monster.style.display = "none";
+                            healthDisplay.style.display = "none";
+                            witchPower.style.display = "none";
+                            monster.style.pointerEvents = "auto";
+                            isMonsterDying = false;
+                        }, 2000);
+                    }
+                }
+            }
+        }
+    }, 5000);
 };
