@@ -223,3 +223,12 @@ img {
     flex-direction: row;
     gap: 10px;
 }
+
+
+@media (max-width: 900px) {
+    .row {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+}
